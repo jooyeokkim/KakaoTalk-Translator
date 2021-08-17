@@ -1,12 +1,8 @@
 package com.example.translationtalk.controller;
 
 import com.example.translationtalk.SaveAC;
-import com.example.translationtalk.makemsg.TextMsg;
-import com.example.translationtalk.service.GetFriendsService;
+import com.example.translationtalk.service.sendfriend.GetFriendsService;
 import com.example.translationtalk.service.GetTranslatedTextService;
-import com.example.translationtalk.service.GetUserInfoService;
-import com.example.translationtalk.service.AccessTokenService;
-import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +17,7 @@ public class HomeController {
     }
 
 
-    @GetMapping("/sendOptions")
+    @GetMapping("/sendoptions")
     public String sendOptions(Model model){
         GetFriendsService getFriendsService = new GetFriendsService();
         getFriendsService.getFriends(SaveAC.accessToken);
@@ -30,23 +26,7 @@ public class HomeController {
     }
 
 
-    @GetMapping("/friendList")
-    public String friendList(@RequestParam("code") String code, Model model){
-        String redirect_uri = "http://kimcoder.kro.kr:8080/friendList";
-
-        AccessTokenService accessTokenService = new AccessTokenService();
-
-        SaveAC.accessToken = accessTokenService.getAccessToken(code, redirect_uri);
-        if(SaveAC.accessToken=="error") return "error";
-
-        GetFriendsService getFriendsService = new GetFriendsService();
-        getFriendsService.getFriends(SaveAC.accessToken);
-
-        return "choosefriend";
-    }
-
-
-    @GetMapping("/startTalk")
+    @GetMapping("/starttalk")
     public String startTalk(@RequestParam("korean") String korean, Model model) {
         String text = korean;
         

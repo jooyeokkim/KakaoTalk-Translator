@@ -15,7 +15,7 @@ public class GetTranslatedTextService {
 
     public String getTranslatedText(String text){
         RestTemplate restTemplate = new RestTemplate();
-        String url = "https://www.googleapis.com/language/translate/v2?key={key}&q={q}&source={source}&target={target}";
+        String url = REQUEST_URL + "?key={key}&q={q}&source={source}&target={target}";
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("key", KEY);

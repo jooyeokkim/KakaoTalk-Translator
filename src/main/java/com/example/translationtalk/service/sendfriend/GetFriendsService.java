@@ -1,6 +1,4 @@
-package com.example.translationtalk.service;
-
-import org.json.JSONObject;
+package com.example.translationtalk.service.sendfriend;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -8,7 +6,7 @@ import java.net.URL;
 
 public class GetFriendsService {
     private final String HTTP_REQUEST = "https://kapi.kakao.com/v1/api/talk/friends";
-    private int limit = 50;
+    private int limit = 100;
     private int offset = 0;
 
     public String getFriends(String accessToken){
@@ -27,18 +25,8 @@ public class GetFriendsService {
             while((line = bf.readLine()) != null){
                 jsonData+=line;
             }
-            System.out.println(accessToken);
-            System.out.println(jsonData);
 
-//            //JSON String -> JSON Object
-//            JSONObject userInfoJsonObject = new JSONObject(jsonData);
-//
-//            //유저의 ID 추출
-//            JSONObject idJsonObject = (JSONObject)userInfoJsonObject.get("id");
-//            String userId = idJsonObject.toString();
-//
-//            return userId;
-            return "success";
+            return jsonData;
         } catch(Exception e) {
             e.printStackTrace();
             return "error";

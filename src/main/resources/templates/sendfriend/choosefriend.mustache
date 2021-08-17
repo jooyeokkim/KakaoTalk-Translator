@@ -1,0 +1,40 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Kakao Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="/static/css/sendfriend/choosefriend.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Choose Friends!</h1>
+    <h2>Total Friends : {{total_count}}</h2>
+    <table id="choose-table" class="table table-hover table-dark table-bordered table-striped">
+        <form action="#" method="POST">
+        <thead>
+            <tr>
+                <th scope="col">닉네임</th>
+                <th scope="col" width="25%">프로필 사진</th>
+                <th scope="col" width="25%">선택</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#friends}}
+                <tr>
+                    <th>{{nickname}}</th>
+                    {{#thumbnail}}
+                        <td><img src="{{.}}" width="100px" height="100px"></td>
+                    {{/thumbnail}}
+                    {{^thumbnail}}
+                        <td><img src="/static/images/default_thumbnail.PNG" width="100px" height="100px"></td>
+                    {{/thumbnail}}
+                    <td><input type="radio" name="uuid" value="{{uuid}}" checked></td>
+                    <br>
+                </tr>
+            {{/friends}}
+        </tbody>
+        </form>
+    </table>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -3,15 +3,11 @@ package com.example.translationtalk.service.sendme;
 import org.json.JSONObject;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
-
-public class SendMsgService {
+public class SendMeMsgService {
     private final String HTTP_REQUEST = "https://kapi.kakao.com/v2/api/talk/memo/default/send";
     private String jsonResult = "";
 
@@ -33,6 +29,7 @@ public class SendMsgService {
             jsonResult = restTemplate.postForObject(url, request, String.class, map);
         } catch (Exception e){
             e.printStackTrace();
+            return "error";
         }
 
         return jsonResult;
