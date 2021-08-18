@@ -1,7 +1,7 @@
 package com.example.translationtalk.controller.sendfriend;
 
 import com.example.translationtalk.SaveAC;
-import com.example.translationtalk.service.makemsg.TextMsg;
+import com.example.translationtalk.service.makemsg.TextMsgService;
 import com.example.translationtalk.service.AccessTokenService;
 import com.example.translationtalk.service.sendfriend.GetFriendsService;
 import com.example.translationtalk.service.GetTranslatedTextService;
@@ -87,8 +87,8 @@ public class SendFriendController {
         GetTranslatedTextService getTranslatedTextService = new GetTranslatedTextService();
         String translatedText = getTranslatedTextService.getTranslatedText(message);
 
-        TextMsg textMsg = new TextMsg();
-        JSONObject template_object = textMsg.getTextMsg(translatedText);
+        TextMsgService textMsgService = new TextMsgService();
+        JSONObject template_object = textMsgService.getTextMsg(translatedText);
 
         SendFriendMsgService sendMsgService = new SendFriendMsgService();
         String result = sendMsgService.sendMsg(SaveAC.accessToken, uuid, template_object);

@@ -1,7 +1,7 @@
 package com.example.translationtalk.controller.sendme;
 
 import com.example.translationtalk.SaveAC;
-import com.example.translationtalk.service.makemsg.TextMsg;
+import com.example.translationtalk.service.makemsg.TextMsgService;
 import com.example.translationtalk.service.AccessTokenService;
 import com.example.translationtalk.service.GetTranslatedTextService;
 import com.example.translationtalk.service.sendme.SendMeMsgService;
@@ -40,8 +40,8 @@ public class SendMeController {
         GetTranslatedTextService getTranslatedTextService = new GetTranslatedTextService();
         String translatedText = getTranslatedTextService.getTranslatedText(message);
 
-        TextMsg textMsg = new TextMsg();
-        JSONObject template_object = textMsg.getTextMsg(translatedText);
+        TextMsgService textMsgService = new TextMsgService();
+        JSONObject template_object = textMsgService.getTextMsg(translatedText);
 
         SendMeMsgService sendMeMsgService = new SendMeMsgService();
         String result = sendMeMsgService.sendMsg(SaveAC.accessToken, template_object);

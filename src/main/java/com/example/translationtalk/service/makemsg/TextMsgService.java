@@ -2,7 +2,7 @@ package com.example.translationtalk.service.makemsg;
 
 import org.json.JSONObject;
 
-public class TextMsg {
+public class TextMsgService {
     public JSONObject getTextMsg(String message){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("object_type", "text");
