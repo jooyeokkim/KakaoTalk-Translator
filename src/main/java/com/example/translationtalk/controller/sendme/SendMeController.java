@@ -1,7 +1,7 @@
 package com.example.translationtalk.controller.sendme;
 
 import com.example.translationtalk.SaveAC;
-import com.example.translationtalk.makemsg.TextMsg;
+import com.example.translationtalk.service.makemsg.TextMsg;
 import com.example.translationtalk.service.AccessTokenService;
 import com.example.translationtalk.service.GetTranslatedTextService;
 import com.example.translationtalk.service.sendme.SendMeMsgService;

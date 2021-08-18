@@ -6,34 +6,39 @@
     <link href="/static/css/sendfriend/choosefriend.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Choose Friends!</h1>
-    <h2>Total Friends : {{total_count}}</h2>
-    <table id="choose-table" class="table table-hover table-dark table-bordered table-striped">
-        <form action="#" method="POST">
-        <thead>
-            <tr>
-                <th scope="col">닉네임</th>
-                <th scope="col" width="25%">프로필 사진</th>
-                <th scope="col" width="25%">선택</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#friends}}
-                <tr>
-                    <th>{{nickname}}</th>
-                    {{#thumbnail}}
-                        <td><img src="{{.}}" width="100px" height="100px"></td>
-                    {{/thumbnail}}
-                    {{^thumbnail}}
-                        <td><img src="/static/images/default_thumbnail.PNG" width="100px" height="100px"></td>
-                    {{/thumbnail}}
-                    <td><input type="radio" name="uuid" value="{{uuid}}" checked></td>
-                    <br>
-                </tr>
-            {{/friends}}
-        </tbody>
+    <h1 class="text-center mt-4">Choose Friend!</h1><br>
+    <div id="table-container">
+        <h3 class="text-end">Total Friends : {{total_count}}</h3>
+        <form action="/sendfriend/entermsg" method="POST">
+            <table id="choose-table" class="table table-hover table-dark table-bordered table-striped text-center align-middle">
+                    <thead>
+                    <tr>
+                        <th scope="col">닉네임</th>
+                        <th scope="col" width="25%">프로필 사진</th>
+                        <th scope="col" width="25%">선택</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {{#friends}}
+                            <tr>
+                                <th>{{nickname}}</th>
+                                {{#thumbnail}}
+                                    <td><img src="{{.}}" width="100px" height="100px"></td>
+                                {{/thumbnail}}
+                                {{^thumbnail}}
+                                    <td><img src="/static/images/default_thumbnail.PNG" width="100px" height="100px"></td>
+                                {{/thumbnail}}
+                                <td><input class="radio" type="radio" name="usercode" value="{{nickname}}&{{uuid}}" checked></td>
+                            </tr>
+                        {{/friends}}
+                    </tbody>
+            </table>
+            <div class="d-flex justify-content-center">
+                <input class="btn btn-secondary btn-lg" type="submit" value="메세지 작성">
+            </div>
         </form>
-    </table>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
 </body>

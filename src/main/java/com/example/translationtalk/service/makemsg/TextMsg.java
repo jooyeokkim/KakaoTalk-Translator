@@ -1,4 +1,4 @@
-package com.example.translationtalk.makemsg;
+package com.example.translationtalk.service.makemsg;
 
 import org.json.JSONObject;
 
