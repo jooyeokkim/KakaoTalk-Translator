@@ -1,21 +1,25 @@
 package com.example.translationtalk.controller;
 
-import com.example.translationtalk.SaveAC;
 import com.example.translationtalk.service.GetUserInfoService;
-import com.example.translationtalk.service.sendfriend.GetFriendsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 @Controller
 public class HomeController {
 
     @GetMapping("/home")
-    public String home(Model model) {
-        if(SaveAC.accessToken.length()!=0) {
+    public String home(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object accessTokenObj = session.getAttribute("accessToken");
+
+        if(accessTokenObj!=null) {
             GetUserInfoService getUserInfoService = new GetUserInfoService();
-            String nickname = getUserInfoService.getUserNickname(SaveAC.accessToken);
+            String nickname = getUserInfoService.getUserNickname(accessTokenObj.toString());
             model.addAttribute("login", true);
             model.addAttribute("nickname", nickname);
         }
@@ -23,18 +27,10 @@ public class HomeController {
     }
 
 
-    @GetMapping("/sendoptions")
-    public String sendOptions(Model model){
-        GetFriendsService getFriendsService = new GetFriendsService();
-        getFriendsService.getFriends(SaveAC.accessToken);
-
-        return "sendoptions";
-    }
-
-
     @GetMapping("/logout")
-    public String logout(Model model) {
-        SaveAC.accessToken="";
+    public String logout(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate();
         return "redirect:home";
     }
 }

@@ -1,6 +1,5 @@
 package com.example.translationtalk.controller.sendfriend;
 
-import com.example.translationtalk.SaveAC;
 import com.example.translationtalk.service.makemsg.TextMsgService;
 import com.example.translationtalk.service.AccessTokenService;
 import com.example.translationtalk.service.sendfriend.GetFriendsService;
@@ -12,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,23 +27,28 @@ public class SendFriendController {
 
 
     @GetMapping("/recieveac")
-    public String recieveac(@RequestParam("code") String code, Model model){
+    public String recieveac(@RequestParam("code") String code, Model model, HttpServletRequest request){
+        HttpSession session = request.getSession();
+
         String redirect_uri = "http://kimcoder.kro.kr:8080/sendfriend/recieveac";
 
         AccessTokenService accessTokenService = new AccessTokenService();
 
-        SaveAC.accessToken = accessTokenService.getAccessToken(code, redirect_uri);
-        if(SaveAC.accessToken=="error") return "error";
+        String accessToken = accessTokenService.getAccessToken(code, redirect_uri);
+        session.setAttribute("accessToken", accessToken);
+        if(accessToken=="error") return "error";
 
         return "redirect:choosefriend";
     }
 
 
     @GetMapping("/choosefriend")
-    public String chooseFriend(Model model){
+    public String chooseFriend(Model model, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        String accessToken = session.getAttribute("accessToken").toString();
 
         GetFriendsService getFriendsService = new GetFriendsService();
-        String jsonData = getFriendsService.getFriends(SaveAC.accessToken);
+        String jsonData = getFriendsService.getFriends(accessToken);
 
         //JSON String -> JSON Object
         JSONObject friendsJsonObject = new JSONObject(jsonData);
@@ -83,15 +89,18 @@ public class SendFriendController {
 
 
     @GetMapping("/send")
-    public String send(@RequestParam("message") String message, Model model){
+    public String send(@RequestParam("message") String message, Model model, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        String accessToken = session.getAttribute("accessToken").toString();
+
         GetTranslatedTextService getTranslatedTextService = new GetTranslatedTextService();
-        String translatedText = getTranslatedTextService.getTranslatedText(message);
+        String translatedText = getTranslatedTextService.getTranslatedText(message, "en");
 
         TextMsgService textMsgService = new TextMsgService();
         JSONObject template_object = textMsgService.getTextMsg(translatedText);
 
         SendFriendMsgService sendMsgService = new SendFriendMsgService();
-        String result = sendMsgService.sendMsg(SaveAC.accessToken, uuid, template_object);
+        String result = sendMsgService.sendMsg(accessToken, uuid, template_object);
 
         System.out.println(result);
         if(result=="error") return "error";
