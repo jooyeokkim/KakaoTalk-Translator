@@ -1,18 +1,24 @@
 package com.example.translationtalk.controller;
 
 import com.example.translationtalk.SaveAC;
+import com.example.translationtalk.service.GetUserInfoService;
 import com.example.translationtalk.service.sendfriend.GetFriendsService;
-import com.example.translationtalk.service.GetTranslatedTextService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class HomeController {
 
     @GetMapping("/home")
     public String home(Model model) {
+        if(SaveAC.accessToken.length()!=0) {
+            GetUserInfoService getUserInfoService = new GetUserInfoService();
+            String nickname = getUserInfoService.getUserNickname(SaveAC.accessToken);
+            model.addAttribute("login", true);
+            model.addAttribute("nickname", nickname);
+        }
         return "home";
     }
 
@@ -26,17 +32,9 @@ public class HomeController {
     }
 
 
-    @GetMapping("/starttalk")
-    public String startTalk(@RequestParam("korean") String korean, Model model) {
-        String text = korean;
-        
-        GetTranslatedTextService getTranslatedTextService = new GetTranslatedTextService();
-        String translatedText = getTranslatedTextService.getTranslatedText(text);
-
-        model.addAttribute("translatedText",translatedText);
-
-        System.out.println(translatedText);
-
-        return "success";
+    @GetMapping("/logout")
+    public String logout(Model model) {
+        SaveAC.accessToken="";
+        return "redirect:home";
     }
 }

@@ -2,14 +2,62 @@
 <head>
     <meta charset="UTF-8">
     <title>Kakao Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&family=Quicksand:wght@700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="/static/css/home.css" rel="stylesheet">
 </head>
 <body>
-<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=50ca5e8cf40713abcab868ed9ed3047d&redirect_uri=http%3A%2F%2Fkimcoder.kro.kr%3A8080%2Fsendfriend%2Frecieveac&scope=friends,talk_message">
-    <h1>친구에게 메세지 보내기</h1>
-</a><br>
+    {{>part/nav}}
+    <div id="main-container">
+        <div id="option-container">
+            <div id="send-friend-container" class="text-center m-3">
+                <button type="button" class="btn btn-warning btn-lg align-middle" onclick="sendFriend();">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-people-fill me-2" viewBox="0 0 16 16">
+                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
+                        <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                    </svg>
+                    <label class="nskr">친구에게 보내기</label>
+                </button>
+            </div>
 
-<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=50ca5e8cf40713abcab868ed9ed3047d&redirect_uri=http%3A%2F%2Fkimcoder.kro.kr%3A8080%2Fsendme%2Frecieveac&scope=talk_message">
-    <h1>나에게 메세지 보내기</h1>
-</a>
+            <div id="send-me-container" class="text-center m-3">
+                <button type="button" class="btn btn-warning btn-lg align-middle" onclick="sendMe();">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill me-2" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    </svg>
+                    <label class="nskr">나에게 보내기</label>
+                </button>
+            </div>
+
+            <div id="logout-container" class="text-center m-3">
+                {{#login}}
+                    <b class="nskr">[{{nickname}}]님 계정으로 로그인되어 있습니다.</b><br>
+                    <button type="button" class="btn btn-warning btn-lg align-middle" onclick="sendMe();">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-x-fill me-2" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                        <label class="nskr">로그아웃</label>
+                    </button>
+                {{/login}}
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function sendFriend(){
+            location.href = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=50ca5e8cf40713abcab868ed9ed3047d&redirect_uri=http%3A%2F%2Fkimcoder.kro.kr%3A8080%2Fsendfriend%2Frecieveac&scope=friends,talk_message,profile_nickname";
+        }
+
+        function sendMe(){
+            location.href = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=50ca5e8cf40713abcab868ed9ed3047d&redirect_uri=http%3A%2F%2Fkimcoder.kro.kr%3A8080%2Fsendme%2Frecieveac&scope=talk_message,profile_nickname";
+        }
+
+        function logout(){
+            location.href = "https://kauth.kakao.com/oauth/logout?client_id=50ca5e8cf40713abcab868ed9ed3047d&logout_redirect_uri=http%3A%2F%2Fkimcoder.kro.kr%3A8080%2Flogout";
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,0 +1,36 @@
+body {
+  background: url("/static/images/main_image.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-width: 700px;
+  min-height: 700px;
+}
+
+#nav{
+    width: 100%;
+    background-color: black;
+    margin: 0 auto;
+}
+
+#option-container, header{
+    width: 40%;
+    margin : 0 auto;
+}
+
+.white, .white a {
+    color: white;
+}
+
+.yellow, .yellow a {
+    color : yellow;
+}
+
+.quicksand {
+    font-family: 'Quicksand', sans-serif;
+}
+
+.nskr {
+    font-family: 'Noto Sans KR', sans-serif;
+}

@@ -13,7 +13,7 @@ public class GetTranslatedTextService {
     private final String KEY = "AIzaSyAJpD7ogqW_dGJ2uhEM8F0Jr-aBdRRAzXw";
     private final String REQUEST_URL = "https://translation.googleapis.com/language/translate/v2";
 
-    public String getTranslatedText(String text){
+    public String getTranslatedText(String text, String targetLanguage){
         RestTemplate restTemplate = new RestTemplate();
         String url = REQUEST_URL + "?key={key}&q={q}&source={source}&target={target}";
 
@@ -21,7 +21,7 @@ public class GetTranslatedTextService {
         map.put("key", KEY);
         map.put("q", text);
         map.put("source", "ko");
-        map.put("target", "en");
+        map.put("target", targetLanguage);
 
         HttpHeaders headers = new HttpHeaders();
         Charset utf8 = Charset.forName("UTF-8");

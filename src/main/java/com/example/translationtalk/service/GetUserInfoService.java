@@ -8,7 +8,7 @@ import java.net.URL;
 public class GetUserInfoService {
     private final String HTTP_REQUEST = "https://kapi.kakao.com/v2/user/me";
 
-    public String getUserId(String accessToken){
+    public String getUserNickname(String accessToken){
         try {
             String jsonData = "";
 
@@ -26,15 +26,15 @@ public class GetUserInfoService {
             //JSON String -> JSON Object
             JSONObject userInfoJsonObject = new JSONObject(jsonData);
 
-            //유저의 ID 추출
-            int userId = (int) userInfoJsonObject.get("id");
-            String userId_str = Long.toString(userId);
+            //유저의 닉네임 추출
+            JSONObject propertiesJSONObject = (JSONObject)userInfoJsonObject.get("properties");
+            String nickname = propertiesJSONObject.get("nickname").toString();
 
-            return userId_str;
+            return nickname;
 
         } catch(Exception e) {
             e.printStackTrace();
-            return "error";
+            return "";
         }
     }
 }
