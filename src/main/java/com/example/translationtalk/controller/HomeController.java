@@ -15,6 +15,7 @@ public class HomeController {
     @GetMapping("/home")
     public String home(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
+        session.setMaxInactiveInterval(60*60*24); // 세션 만료 기간 : 1일
         Object accessTokenObj = session.getAttribute("accessToken");
 
         if(accessTokenObj!=null) {

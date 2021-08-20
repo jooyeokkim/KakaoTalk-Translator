@@ -14,7 +14,7 @@ body {
     margin: 0 auto;
 }
 
-#option-container, header{
+.my-container{
     width: 40%;
     margin : 0 auto;
 }
@@ -33,4 +33,27 @@ body {
 
 .nskr {
     font-family: 'Noto Sans KR', sans-serif;
+}
+
+#text, form{
+    width : 100%;
+}
+
+span {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#send-container{
+    height: 30px;
+}
+
+span{
+    line-height: 30px;
+    vertical-align: middle;
+}
+
+#history{
+    color: black;
+    opacity: 1;
 }

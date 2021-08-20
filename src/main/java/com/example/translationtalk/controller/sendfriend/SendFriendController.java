@@ -75,14 +75,28 @@ public class SendFriendController {
         return "sendfriend/choosefriend";
     }
 
-    @PostMapping("/entermsg")
-    public String enterMsg(@RequestParam("usercode") String usercode, Model model){
+
+    @PostMapping("/saveusercode")
+    public String getUsercode(@RequestParam("usercode") String usercode, Model model, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.setAttribute("usercode", usercode);
+        return "redirect:entermsg";
+    }
+
+
+    @GetMapping("/entermsg")
+    public String enterMsg(Model model, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        String usercode = session.getAttribute("usercode").toString();
+
         String[] splitedUsercode = usercode.split("&");
         nickname = splitedUsercode[0];
         uuid = splitedUsercode[1];
 
         model.addAttribute("nickname", nickname);
         model.addAttribute("uuid", uuid);
+        model.addAttribute("message", session.getAttribute("message"));
+        model.addAttribute("translatedMessage", session.getAttribute("translatedMessage"));
 
         return "/sendfriend/entermsg";
     }
@@ -105,6 +119,8 @@ public class SendFriendController {
         System.out.println(result);
         if(result=="error") return "error";
 
-        return "/home";
+        session.setAttribute("message", message);
+        session.setAttribute("translatedMessage", translatedText);
+        return "redirect:entermsg";
     }
 }
