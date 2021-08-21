@@ -103,12 +103,13 @@ public class SendFriendController {
 
 
     @GetMapping("/send")
-    public String send(@RequestParam("message") String message, Model model, HttpServletRequest request){
+    public String send(@RequestParam("message") String message,
+                       @RequestParam("language") String language, Model model, HttpServletRequest request){
         HttpSession session = request.getSession();
         String accessToken = session.getAttribute("accessToken").toString();
 
         GetTranslatedTextService getTranslatedTextService = new GetTranslatedTextService();
-        String translatedText = getTranslatedTextService.getTranslatedText(message, "en");
+        String translatedText = getTranslatedTextService.getTranslatedText(message, language);
 
         TextMsgService textMsgService = new TextMsgService();
         JSONObject template_object = textMsgService.getTextMsg(translatedText);
