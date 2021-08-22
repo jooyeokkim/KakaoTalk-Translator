@@ -8,10 +8,9 @@ body {
   min-height: 700px;
 }
 
-#nav{
-    width: 100%;
-    background-color: black;
-    margin: 0 auto;
+span{
+    line-height: 30px;
+    vertical-align: middle;
 }
 
 .my-container{
@@ -39,21 +38,26 @@ body {
     width : 100%;
 }
 
-span {
-    display: table-cell;
-    vertical-align: middle;
+#nav{
+    width: 100%;
+    background-color: black;
+    margin: 0 auto;
 }
 
 #send-container{
     height: 30px;
 }
 
-span{
-    line-height: 30px;
-    vertical-align: middle;
-}
-
 #history{
     color: black;
     opacity: 1;
+}
+
+#send-friend-container{
+    margin-top : 50px;
+}
+
+#languagelist-container{
+    width: 30%;
+    margin : 0 auto;
 }

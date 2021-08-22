@@ -3,6 +3,8 @@ package com.example.translationtalk.service.sendme;
 import org.json.JSONObject;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +16,8 @@ public class SendMeMsgService {
     public String sendMsg(String accessToken, JSONObject jsonObject){
         RestTemplate restTemplate = new RestTemplate();
         String url = HTTP_REQUEST + "?access_token={access_token}&template_object={template_object}";
+
+        //
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("access_token", accessToken);

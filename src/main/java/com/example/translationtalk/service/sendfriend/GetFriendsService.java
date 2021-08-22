@@ -13,6 +13,8 @@ public class GetFriendsService {
         try {
             String jsonData = "";
 
+            //
+
             // URI를 URL객체로 저장
             URL url = new URL(HTTP_REQUEST +
                     "?access_token=" + accessToken +

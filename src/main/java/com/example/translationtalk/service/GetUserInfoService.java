@@ -2,6 +2,7 @@ package com.example.translationtalk.service;
 
 import org.json.JSONObject;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
@@ -11,6 +12,8 @@ public class GetUserInfoService {
     public String getUserNickname(String accessToken){
         try {
             String jsonData = "";
+
+            //
 
             // URI를 URL객체로 저장
             URL url = new URL(HTTP_REQUEST + "?access_token=" + accessToken);
@@ -32,7 +35,7 @@ public class GetUserInfoService {
 
             return nickname;
 
-        } catch(Exception e) {
+        } catch(IOException e) {
             e.printStackTrace();
             return "";
         }

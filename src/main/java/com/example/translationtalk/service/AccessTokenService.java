@@ -2,8 +2,14 @@ package com.example.translationtalk.service;
 
 import org.json.JSONObject;
 import org.springframework.http.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 
 public class AccessTokenService {
@@ -11,6 +17,7 @@ public class AccessTokenService {
     private final String CLIENT_ID = "50ca5e8cf40713abcab868ed9ed3047d";
     private final String CLIENT_SECRET= "Jh4Y0e5IS5IWCoCKzTfnQUQX8okqCSC0";
     private final String TOKEN_URL = "https://kauth.kakao.com/oauth/token";
+    private final String TOKEN_STATE_URL = "https://kapi.kakao.com/v1/user/access_token_info";
     private String accessTokenJsonData = "";
 
     public String getAccessToken(String code, String redirect_uri){
@@ -45,6 +52,35 @@ public class AccessTokenService {
 
             return accessToken;
         }
+        return "error";
+    }
+
+
+    public String getAccessTokenState(String accessToken){
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        HttpEntity request = new HttpEntity(headers);
+
+        UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl(TOKEN_STATE_URL)
+                .queryParam("access_token", accessToken);
+        //pYfSj7J9Ti_5ZU4Yam-UbAceqX2IU0Fv7V7FGAopyNgAAAF7bSMWFa
+        try {
+            ResponseEntity<String> responseEntity = restTemplate.exchange(
+                    uriComponentsBuilder.toUriString(),
+                    HttpMethod.GET,
+                    request,
+                    String.class
+            );
+
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+                return responseEntity.getBody();
+            }
+        } catch (HttpClientErrorException.Unauthorized ue){
+            return "토큰 만료";
+        }
+
         return "error";
     }
 }

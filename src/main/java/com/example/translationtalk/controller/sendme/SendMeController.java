@@ -28,6 +28,11 @@ public class SendMeController {
 
         String accessToken = accessTokenService.getAccessToken(code,redirect_uri);
 
+        // testcode
+        String result = accessTokenService.getAccessTokenState(accessToken);
+        System.out.println("ho"+result);
+        //
+
         session.setMaxInactiveInterval(60*60*6);
         session.setAttribute("accessToken", accessToken);
 

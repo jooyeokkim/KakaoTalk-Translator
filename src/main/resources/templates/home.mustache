@@ -10,7 +10,7 @@
     {{>part/nav}}
     <div id="main-container">
         <div id="option-container" class="my-container">
-            <div id="send-friend-container" class="text-center m-3">
+            <div id="send-friend-container" class="text-center">
                 <button type="button" class="btn btn-warning btn-lg align-middle" onclick="sendFriend();">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-people-fill me-2" viewBox="0 0 16 16">
                         <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -42,21 +42,12 @@
                 {{/login}}
             </div>
         </div>
+        <div id="languagelist-container" class="mt-4 mb-4">
+            {{>part/languages/table}}
+        </div>
     </div>
 
-    <script type="text/javascript">
-        function sendFriend(){
-            location.href = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=50ca5e8cf40713abcab868ed9ed3047d&redirect_uri=http%3A%2F%2Fkimcoder.kro.kr%3A8080%2Fsendfriend%2Frecieveac&scope=friends,talk_message,profile_nickname";
-        }
-
-        function sendMe(){
-            location.href = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=50ca5e8cf40713abcab868ed9ed3047d&redirect_uri=http%3A%2F%2Fkimcoder.kro.kr%3A8080%2Fsendme%2Frecieveac&scope=talk_message,profile_nickname";
-        }
-
-        function logout(){
-            location.href = "https://kauth.kakao.com/oauth/logout?client_id=50ca5e8cf40713abcab868ed9ed3047d&logout_redirect_uri=http%3A%2F%2Fkimcoder.kro.kr%3A8080%2Flogout";
-        }
-    </script>
+    <script type="text/javascript" src="/static/js/routehome.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
 </body>
