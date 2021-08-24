@@ -15,7 +15,8 @@
         </div>
 
         <div id="form-container" class="d-flex justify-content-center m-3">
-            <form action="/sendme/send">
+            <form action="/sendme/send" method="POST">
+                <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
                 <h2 class="nskr mt-3">언어 선택</h2>
                 <div id="language-container" class="mb-3 mt-3">
                     {{>part/languages/option}}

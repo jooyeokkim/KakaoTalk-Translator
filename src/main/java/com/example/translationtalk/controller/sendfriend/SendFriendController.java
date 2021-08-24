@@ -109,7 +109,7 @@ public class SendFriendController {
     }
 
 
-    @GetMapping("/send")
+    @PostMapping("/send")
     public String send(@RequestParam("message") String message,
                        @RequestParam("language") String language, Model model, HttpServletRequest request){
 

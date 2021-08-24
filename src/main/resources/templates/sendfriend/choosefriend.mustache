@@ -13,6 +13,7 @@
     <div id="table-container" class="quicksand my-container">
         <h3 class="text-end">Total Friends : {{total_count}}</h3>
         <form action="/sendfriend/saveusercode" method="POST">
+            <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
             <table id="choose-table" class="table table-hover table-dark table-bordered table-striped text-center align-middle">
                 <thead>
                 <tr>
