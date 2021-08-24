@@ -15,8 +15,6 @@ public class SendFriendMsgService {
         RestTemplate restTemplate = new RestTemplate();
         String url = HTTP_REQUEST + "?access_token={access_token}&receiver_uuids={receiver_uuids}&template_object={template_object}";
 
-        //
-
         Map<String, String> map = new HashMap<String, String>();
         map.put("access_token", accessToken);
         map.put("receiver_uuids", "[\""+uuid+"\"]");

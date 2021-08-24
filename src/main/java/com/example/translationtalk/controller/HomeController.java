@@ -1,12 +1,22 @@
 package com.example.translationtalk.controller;
 
+import com.example.translationtalk.service.GetTranslatedTextService;
 import com.example.translationtalk.service.GetUserInfoService;
+import com.example.translationtalk.service.makemsg.TextMsgService;
+import com.example.translationtalk.service.sendfriend.SendFriendMsgService;
+import com.example.translationtalk.service.sendme.SendMeMsgService;
+import com.example.translationtalk.service.token.AccessTokenService;
+import com.example.translationtalk.service.token.RefreshTokenService;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 
 @Controller

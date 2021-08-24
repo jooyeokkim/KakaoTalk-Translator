@@ -2,6 +2,10 @@ function moveHome(){
     location.href = "/home";
 }
 
+function moveChooseFriend(){
+    location.href = "/sendfriend/choosefriend";
+}
+
 var sendBtn = document.querySelector('#send');
 
 $(document).ready(function(){

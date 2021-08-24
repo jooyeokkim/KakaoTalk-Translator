@@ -1,4 +1,4 @@
-package com.example.translationtalk.service;
+package com.example.translationtalk.service.token;
 
 import org.json.JSONObject;
 import org.springframework.http.*;
@@ -6,10 +6,13 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class AccessTokenService {
@@ -20,8 +23,10 @@ public class AccessTokenService {
     private final String TOKEN_STATE_URL = "https://kapi.kakao.com/v1/user/access_token_info";
     private String accessTokenJsonData = "";
 
-    public String getAccessToken(String code, String redirect_uri){
+    public Map<String, String> getAccessToken(String code, String redirect_uri){
         RestTemplate restTemplate = new RestTemplate();
+
+        Map<String, String> tokens = new HashMap<String, String>();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -47,16 +52,18 @@ public class AccessTokenService {
             //JSON String -> JSON Object
             JSONObject accessTokenJsonObject = new JSONObject(accessTokenJsonData);
 
-            //access_token 추출
+            //token 추출 후 저장
             String accessToken = accessTokenJsonObject.get("access_token").toString();
-
-            return accessToken;
+            String refreshToken = accessTokenJsonObject.get("refresh_token").toString();
+            tokens.put("accessToken", accessToken);
+            tokens.put("refreshToken", refreshToken);
         }
-        return "error";
+
+        return tokens;
     }
 
 
-    public String getAccessTokenState(String accessToken){
+    public String checkAccessTokenState(String accessToken){
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -65,7 +72,8 @@ public class AccessTokenService {
 
         UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl(TOKEN_STATE_URL)
                 .queryParam("access_token", accessToken);
-        //pYfSj7J9Ti_5ZU4Yam-UbAceqX2IU0Fv7V7FGAopyNgAAAF7bSMWFa
+        //Test AC : pYfSj7J9Ti_5ZU4Yam-UbAceqX2IU0Fv7V7FGAopyNgAAAF7bSMWFA
+
         try {
             ResponseEntity<String> responseEntity = restTemplate.exchange(
                     uriComponentsBuilder.toUriString(),
@@ -73,14 +81,12 @@ public class AccessTokenService {
                     request,
                     String.class
             );
-
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 return responseEntity.getBody();
             }
         } catch (HttpClientErrorException.Unauthorized ue){
-            return "토큰 만료";
+            return "expired";
         }
-
         return "error";
     }
 }
