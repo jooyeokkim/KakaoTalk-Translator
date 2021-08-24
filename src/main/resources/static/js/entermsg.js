@@ -3,7 +3,7 @@ function moveHome(){
 }
 
 function moveChooseFriend(){
-    location.href = "/sendfriend/choosefriend";
+    location.href = "/sendfriend/choosefriend?page=1";
 }
 
 var sendBtn = document.querySelector('#send');

@@ -17,8 +17,6 @@ public class SendMeMsgService {
         RestTemplate restTemplate = new RestTemplate();
         String url = HTTP_REQUEST + "?access_token={access_token}&template_object={template_object}";
 
-        //
-
         Map<String, String> map = new HashMap<String, String>();
         map.put("access_token", accessToken);
         map.put("template_object", jsonObject.toString());

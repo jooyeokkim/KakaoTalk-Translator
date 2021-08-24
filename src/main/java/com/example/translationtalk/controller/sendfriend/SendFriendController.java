@@ -22,11 +22,10 @@ import java.util.Map;
 @RequestMapping("/sendfriend")
 public class SendFriendController {
 
-    @GetMapping("/recieveac")
-    public String recieveac(@RequestParam("code") String code, Model model, HttpServletRequest request){
+    @GetMapping("/receiveac")
+    public String receiveac(@RequestParam("code") String code, Model model, HttpServletRequest request){
         HttpSession session = request.getSession();
-
-        String redirect_uri = "http://kimcoder.kro.kr:8080/sendfriend/recieveac";
+        String redirect_uri = "http://kimcoder.kro.kr:8080/sendfriend/receiveac";
 
         AccessTokenService accessTokenService = new AccessTokenService();
         Map<String, String> tokens = accessTokenService.getAccessToken(code, redirect_uri);
@@ -35,14 +34,16 @@ public class SendFriendController {
         session.setAttribute("accessToken", tokens.get("accessToken"));
         session.setAttribute("refreshToken", tokens.get("refreshToken"));
 
-        return "redirect:choosefriend";
+        return "redirect:choosefriend?page=1";
     }
 
 
     @GetMapping("/choosefriend")
-    public String chooseFriend(Model model, HttpServletRequest request){
+    public String chooseFriend(@RequestParam("page") String page,
+                               Model model, HttpServletRequest request){
         HttpSession session = request.getSession();
 
+        System.out.println(page);
         Object accessToken = session.getAttribute("accessToken");
         if(accessToken==null) return "expired";
 
@@ -82,7 +83,7 @@ public class SendFriendController {
 
 
     @PostMapping("/saveusercode")
-    public String getUsercode(@RequestParam("usercode") String usercode, Model model, HttpServletRequest request){
+    public String saveUsercode(@RequestParam("usercode") String usercode, Model model, HttpServletRequest request){
         HttpSession session = request.getSession();
 
         String[] splitedUsercode = usercode.split("&");

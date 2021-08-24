@@ -21,10 +21,10 @@ import java.util.Map;
 @RequestMapping("/sendme")
 public class SendMeController {
 
-    @GetMapping("/recieveac")
-    public String recieveac(@RequestParam("code") String code, Model model, HttpServletRequest request){
+    @GetMapping("/receiveac")
+    public String receiveac(@RequestParam("code") String code, Model model, HttpServletRequest request){
         HttpSession session = request.getSession();
-        String redirect_uri = "http://kimcoder.kro.kr:8080/sendme/recieveac";
+        String redirect_uri = "http://kimcoder.kro.kr:8080/sendme/receiveac";
 
         AccessTokenService accessTokenService = new AccessTokenService();
         Map<String, String> tokens = accessTokenService.getAccessToken(code, redirect_uri);
