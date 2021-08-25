@@ -11,8 +11,8 @@ import java.util.Map;
 
 public class RefreshTokenService {
     private final String GRANT_TYPE= "refresh_token";
-    private final String CLIENT_ID = "50ca5e8cf40713abcab868ed9ed3047d";
-    private final String CLIENT_SECRET= "Jh4Y0e5IS5IWCoCKzTfnQUQX8okqCSC0";
+    private final String CLIENT_ID = "YOUR_CLIENT_ID";
+    private final String CLIENT_SECRET= "YOUR_CLIENT_SECRET";
     private final String TOKEN_URL = "https://kauth.kakao.com/oauth/token";
     private String accessTokenJsonData = "";
 

@@ -42,25 +42,45 @@ public class SendFriendController {
     public String chooseFriend(@RequestParam("page") String page,
                                Model model, HttpServletRequest request){
         HttpSession session = request.getSession();
+        final int limitPage = 100;
+        int page_int = Integer.parseInt(page);
 
-        System.out.println(page);
+
         Object accessToken = session.getAttribute("accessToken");
         if(accessToken==null) return "expired";
 
 
-        GetFriendsService getFriendsService = new GetFriendsService();
-        String jsonData = getFriendsService.getFriends(accessToken.toString());
-
-
-        //JSON String -> JSON Object
-        JSONObject friendsJsonObject = new JSONObject(jsonData);
-
-
         //친구 수 추출
-        int total_count = (int)friendsJsonObject.get("total_count");
+        GetFriendsService getFriendsService = new GetFriendsService();
+        String jsonData = getFriendsService.getFriends(accessToken.toString(),100,0);
+        JSONObject friendsJsonObject = new JSONObject(jsonData);
+        int totalCount = (int)friendsJsonObject.get("total_count");
 
 
-        //사용자의 닉네임과 프로필 사진 추출
+        //해당 page의 사용자 목록 추출
+        if(totalCount<=limitPage){
+            model.addAttribute("previous", false);
+            model.addAttribute("next", false);
+        }
+        else if(page_int==1){
+            model.addAttribute("previous", false);
+            model.addAttribute("next", true);
+        }
+        else if(page_int==(int)Math.ceil((double)totalCount/limitPage)){
+            model.addAttribute("previous", true);
+            model.addAttribute("next", false);
+        }
+        else{
+            model.addAttribute("previous", true);
+            model.addAttribute("next", true);
+        }
+        model.addAttribute("previousPage", page_int-1);
+        model.addAttribute("nextPage",page_int+1);
+        jsonData = getFriendsService.getFriends(accessToken.toString(),limitPage,(page_int-1)*limitPage);
+        friendsJsonObject = new JSONObject(jsonData);
+
+
+        //사용자들의 닉네임과 프로필 사진 추출
         ArrayList<Map<String, String>> friends = new ArrayList<Map<String, String>>();
         JSONArray elementsJSONArray = (JSONArray) friendsJsonObject.get("elements");
 
@@ -76,7 +96,7 @@ public class SendFriendController {
         }
 
 
-        model.addAttribute("total_count", total_count);
+        model.addAttribute("totalCount", totalCount);
         model.addAttribute("friends", friends);
         return "sendfriend/choosefriend";
     }

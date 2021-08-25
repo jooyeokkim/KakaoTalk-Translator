@@ -11,7 +11,15 @@
     {{>part/nav}}
     <h1 class="text-center mt-4 quicksand">Choose Friend!</h1><br>
     <div id="table-container" class="quicksand my-container">
-        <h3 class="text-end">Total Friends : {{total_count}}</h3>
+        <h3 class="text-end">Total Friends : {{totalCount}}</h3>
+        <div id="page-container" class="my-container">
+            {{#previous}}
+                <a class="left-box" href="/sendfriend/choosefriend?page={{previousPage}}">Prev Page</a>
+            {{/previous}}
+            {{#next}}
+                <a class="right-box" href="/sendfriend/choosefriend?page={{nextPage}}">Next Page</a>
+            {{/next}}
+        </div>
         <form action="/sendfriend/saveusercode" method="POST">
             <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}" />
             <table id="choose-table" class="table table-hover table-dark table-bordered table-striped text-center align-middle">

@@ -10,7 +10,7 @@ import java.util.Map;
 
 
 public class GetTranslatedTextService {
-    private final String KEY = "AIzaSyAJpD7ogqW_dGJ2uhEM8F0Jr-aBdRRAzXw";
+    private final String KEY = "YOUR KEY";
     private final String REQUEST_URL = "https://translation.googleapis.com/language/translate/v2";
 
     public String getTranslatedText(String text, String targetLanguage){

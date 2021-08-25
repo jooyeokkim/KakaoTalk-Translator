@@ -9,11 +9,25 @@ h1 {
     margin-top: 3rem;
 }
 
-#choose-table{
-    margin: 1rem auto;
+.left-box {
+  float: left;
+  font-size: 20px;
+}
+
+.right-box {
+  float: right;
+  font-size: 20px;
 }
 
 .radio {
     width: 25px;
     height: 25px;
+}
+
+#choose-table{
+    margin: 1rem auto;
+}
+
+#page-container{
+    width: 100%;
 }

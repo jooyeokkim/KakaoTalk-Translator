@@ -12,8 +12,8 @@ import java.util.Map;
 
 public class AccessTokenService {
     private final String GRANT_TYPE= "authorization_code";
-    private final String CLIENT_ID = "50ca5e8cf40713abcab868ed9ed3047d";
-    private final String CLIENT_SECRET= "Jh4Y0e5IS5IWCoCKzTfnQUQX8okqCSC0";
+    private final String CLIENT_ID = "YOUR_CLIENT_ID";
+    private final String CLIENT_SECRET= "YOUR_CLIENT_SECRET";
     private final String TOKEN_URL = "https://kauth.kakao.com/oauth/token";
     private final String TOKEN_STATE_URL = "https://kapi.kakao.com/v1/user/access_token_info";
     private String accessTokenJsonData = "";
@@ -67,7 +67,6 @@ public class AccessTokenService {
 
         UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl(TOKEN_STATE_URL)
                 .queryParam("access_token", accessToken);
-        //Test AC : pYfSj7J9Ti_5ZU4Yam-UbAceqX2IU0Fv7V7FGAopyNgAAAF7bSMWFA
 
         try {
             ResponseEntity<String> responseEntity = restTemplate.exchange(
