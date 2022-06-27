@@ -1,7 +1,9 @@
 package com.example.translationtalk.service.makemsg;
 
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TextMsgService {
     public JSONObject getTextMsg(String message){
         JSONObject jsonObject = new JSONObject();
