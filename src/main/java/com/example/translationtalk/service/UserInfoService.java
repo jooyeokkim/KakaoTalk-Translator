@@ -18,7 +18,7 @@ public class UserInfoService {
     public String getUserNickname(String accessToken) {
         UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl(HTTP_REQUEST);
         String jsonData=myRestTemplate.getJsonData(accessToken, MediaType.APPLICATION_FORM_URLENCODED, uriComponentsBuilder, HttpMethod.POST);
-        if(jsonData=="error") return "error";
+        if(jsonData=="error") return "_error";
 
         //JSON String -> JSON Object
         JSONObject userInfoJsonObject = new JSONObject(jsonData);

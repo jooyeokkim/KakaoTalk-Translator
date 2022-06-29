@@ -23,7 +23,7 @@ public class HomeController {
         Object accessTokenObj = session.getAttribute("accessToken");
         if(accessTokenObj!=null) {
             String nickname = userInfoService.getUserNickname(accessTokenObj.toString());
-            if(nickname=="error") return "error";
+            if(nickname=="_error") return "error";
             model.addAttribute("login", true);
             model.addAttribute("nickname", nickname);
         }

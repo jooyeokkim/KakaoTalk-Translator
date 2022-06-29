@@ -24,7 +24,7 @@ public class TranslatedTextService {
                 .queryParam("source", "ko")
                 .queryParam("target", targetLanguage);
         String jsonData=myRestTemplate.getJsonData("", MediaType.APPLICATION_JSON, uriComponentsBuilder, HttpMethod.POST);
-        if(jsonData=="error") return "error";
+        if(jsonData=="error") return "_error";
 
         jsonData = jsonData.replace("&#39;","'");
         // 번역된 text 추출

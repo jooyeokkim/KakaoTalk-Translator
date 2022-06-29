@@ -7,7 +7,6 @@ import com.example.translationtalk.service.sendme.SendMeMsgService;
 import com.example.translationtalk.service.token.RefreshTokenService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +34,7 @@ public class SendMeController {
         HttpSession session = request.getSession();
 
         Map<String, String> tokens = accessTokenService.getAccessToken(code, "http://kimcoder.kro.kr:8080/sendme/receiveac");
-        if(tokens==null) return "error";
+        if(tokens==null) return "scope";
         System.out.println("Send me access token = "+tokens.get("accessToken")); // For RestTemplateTest
         System.out.println("Send me refresh token = "+tokens.get("refreshToken")); // For RestTemplateTest
 
@@ -87,7 +86,7 @@ public class SendMeController {
 
         // 구글 번역 api 사용
         String translatedText = translatedTextService.getTranslatedText(message, language);
-        if(translatedText=="error") return "error";
+        if(translatedText=="_error") return "error";
 
         // 텍스트 템플릿 작성
         JSONObject template_object = textMsgService.getTextMsg(translatedText);
